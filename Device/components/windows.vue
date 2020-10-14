@@ -5,23 +5,23 @@
         <scroll-view :content-container-style="{contentContainer: {flex:1}}">
             <!-- Buttons for each window -->
             <view v-for="window in retrievedInfo" :key="window.key">
-                <view class="windowContainer">
+                <view class="windowContainer z-depth-1">
                     <text class="WindowText">Window with id: 
                       <text class="dynamicText">{{window.key}} </text> owned by 
                       <text class="dynamicText">{{window.owner}} </text> is currently :
                       <text class="dynamicText">{{window.status}} </text> 
                     </text>
 
-                    <image v-if="window.status == 'Opened'" :source= "require('../assets/opened.jpg')" class="imageContainer"/>
-                    <image v-else :source= "require('../assets/closed.jpg')" class="imageContainer"/> 
+                    <image v-if="window.status == 'Opened'" :source= "require('../assets/opened.jpg')" class="imageContainerOpened"/>
+                    <image v-else :source= "require('../assets/closed.jpg')" class="imageContainerClosed"/> 
 
                     <view class="topBtn">
                         <view class="topBtnLeft">
-                            <button  title="Open Window" @press="openWindow(window)"></button>
+                            <button  title="Open Window" @press="openWindow(window)" color = "#007aff"></button>
                         </view>
 
                         <view class="topBtnRight">
-                            <button  title="Close Window" @press="closeWindow(window)"></button>
+                            <button  title="Close Window" @press="closeWindow(window)" color = "#ff954f"></button>
                         </view>
                         
                     </view>
@@ -127,7 +127,7 @@ export default {
 
 <style>
 .container {
-  background-color: #0a84ff;
+  background-color: #8e8e93;
   align-items: center;
   flex: 1;
   
@@ -156,31 +156,42 @@ export default {
 
 .WindowText {
   font-size:16;
-  color:white;
+  color:black;
   margin-top: 5%;
 }
 
 .dynamicText{
   font-size:16;
-  color:white;
+  color:black;
   font-weight: bold;
 }
 
 .windowContainer{
   border-color: whitesmoke;
+  background-color: white;
   border-width: 2px;
-  border-radius: 5;
-  margin-top: 3%;
+  border-radius: 15;
+  margin-top: 5%;
   padding-left: 5px;
   padding-right: 5px;
   margin-left: 2%;
   margin-right: 2%;
+  
 }
 
-.imageContainer{
+.imageContainerClosed{
   width: 200px;
   height: 180px;
   margin-left: auto;
   margin-right: auto;
+  margin:5px;
+}
+
+.imageContainerOpened{
+  width: 250px;
+  height: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  margin:5px;
 }
 </style>
