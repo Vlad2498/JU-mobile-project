@@ -12,6 +12,9 @@
                       <text class="dynamicText">{{window.status}} </text> 
                     </text>
 
+                    <image v-if="window.status == 'Opened'" :source= "require('../assets/opened.jpg')" class="imageContainer"/>
+                    <image v-else :source= "require('../assets/closed.jpg')" class="imageContainer"/> 
+
                     <view class="topBtn">
                         <view class="topBtnLeft">
                             <button  title="Open Window" @press="openWindow(window)"></button>
@@ -172,5 +175,12 @@ export default {
   padding-right: 5px;
   margin-left: 2%;
   margin-right: 2%;
+}
+
+.imageContainer{
+  width: 200px;
+  height: 180px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
