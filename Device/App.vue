@@ -30,7 +30,7 @@ const firebaseConfigDevice = {
       // measurementId: "G-DLJQQE49E1"
 };
 
-// var device = firebase.initializeApp(firebaseConfigDevice);
+ var device = firebase.initializeApp(firebaseConfigDevice);
 
 import {
   createAppContainer,

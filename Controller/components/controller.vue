@@ -9,7 +9,12 @@
                 <view v-if="window.owner == authUser.email" class="windowContainer z-depth-1">
                     <text class="WindowText">Window with id: 
                       <text class="dynamicText">{{window.key}} </text> is currently :
-                      <text class="dynamicText">{{window.status}} </text>
+                      <text class="dynamicText">{{window.status}} </text> 
+                      <text v-if="window.status != 'Requiring Configuration'">
+                      since :
+                      <text class="dynamicText">{{ window.since}} </text> 
+                      sec
+                      </text>
                     </text>
                     <view class="topBtn">
                         <view class="topBtnLeft">
@@ -65,13 +70,13 @@ export default {
         },
 
         spawnWindow(){
-            this.information.push({windowStatus: "Requiring Configuration", owner: this.authUser.email})
+            this.information.push({windowStatus: "Requiring Configuration", owner: this.authUser.email, windowsSince: "0"})
         },
 
 
         openWindow(window){
             if (window.status != "Opened") {
-                this.information.child(window.key).update({windowStatus: "Opened"})
+                this.information.child(window.key).update({windowStatus: "Opened", windowsSince:"0"})
                 console.log("Window opened")
             } else {
                 console.log("Window alreadey opened")
@@ -83,7 +88,7 @@ export default {
         closeWindow(window){
             // this.information.push({windowStatus: "Closed"})
             if (window.status != "Closed") {
-                this.information.child(window.key).update({windowStatus: "Closed"})
+                this.information.child(window.key).update({windowStatus: "Closed", windowsSince:"0"})
                 console.log("Window closed")
             } else {
                 // console.log(window)
@@ -134,11 +139,12 @@ export default {
             for (const key in retrValue) {
                 const dbWindow = retrValue[key];
 
-                if (dbWindow.windowStatus && dbWindow.owner) {
+                if (dbWindow.windowStatus && dbWindow.owner && dbWindow.windowsSince) {
                     const status = dbWindow.windowStatus;
                     const owner = dbWindow.owner;
+                    const since = dbWindow.windowsSince
                     // console.log(dbMessage.text);
-                    this.retrievedInfo.push({ key, status, owner });
+                    this.retrievedInfo.push({ key, status, owner, since });
                     // var animate = this.$refs.scrlview
                     // animate.scrollToEnd({animated: true})
                 }
