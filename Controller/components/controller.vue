@@ -117,7 +117,7 @@ export default {
         .database()
         .ref("window") // name of the collection
         .on("value", (snap) => { 
-            // Empty the all showing messages to avoid duplicates
+            // Empty the all showing information to avoid duplicates
             this.retrievedInfo = [];
             const retrValue = snap.val();
 
@@ -130,7 +130,7 @@ export default {
                 }
             })
 
-            // Loads messages 
+            // Loads information 
             for (const key in retrValue) {
                 const dbWindow = retrValue[key];
 

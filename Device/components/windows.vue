@@ -23,6 +23,9 @@
                         <view class="topBtnRight">
                             <button  title="Close Window" @press="closeWindow(window)" color = "#ff954f"></button>
                         </view>
+                        <view class="topBtnRight">
+                            <button  title="Loop" @press="recOpen(window.status)" color = "#ff954f"></button>
+                        </view>
 
                        
                         
@@ -48,7 +51,8 @@ export default {
 
   methods: {
 
-    recOpen(status) {
+    recOpen(status) { 
+      // console.log("called loop")
       // if (status == "Opened"){
       // console.log("Window opened in one second loops")
       //   this.timeout = setTimeout(recOpen("Opened"), 1000);
@@ -56,24 +60,31 @@ export default {
       //   clearTimeout(this.timeuot)
       //   console.log("in else condition")
       // }
+
+      var opnTimer
+      var clsdTimer 
+
         function loop(){
-          var opnTimer = {};
-          var clsdTimer = {};
+          
+          // var clsdTimer = {};
           if(status == "Opened") {
-            if (clsdTimer){
-              clearTimeout(clsdTimer)
-              // console.log("closed clsd timer")
-            }
             opnTimer = setTimeout(loop,1000)
             console.log("Window open in loop every second")
+            clearTimeout(opnTimer) //If this function is here, or in the same scope, it will work. If it's outside this if statement like in the i(status == closed) then it will not work
+            if(opnTimer) {
+              // clearTimeout(opnTimer)
+            }
+            // console.log(opnTimer)
+            
+
+            
           } else if(status == "Closed") {
             
-            if(opnTimer){
-              clearTimeout(opnTimer)
-              // console.log("closed opnTimer")
-            }
+            // clearTimeout(opnTimer) 
             clsdTimer = setTimeout(loop, 2000)
             console.log("Windwos is closed in loop every 2 seconds")
+            clearTimeout(clsdTimer)
+            
           }
         }
 
@@ -89,13 +100,10 @@ export default {
 
             } else {
                 console.log("Window alreadey opened")
-            }
-            // this.information.child(key).update({windowStatus: "Opened"})
-            
+            }            
         },
 
         closeWindow(window){
-            // this.information.push({windowStatus: "Closed"})
             if (window.status != "Closed") {
                 this.information.child(window.key).update({windowStatus: "Closed"})
 
@@ -112,24 +120,17 @@ export default {
 
   },
 
-  mounted(){
-      // try {
-      //   firebase.initializeApp(firebaseConfigDevice);
-      // } catch {
-      //   var device = firebase.initializeApp(firebaseConfigDevice, "secondary");
-      // }
-      
-
+  mounted(){    
         this.information = firebase.database().ref("window");
         firebase
         .database()
         .ref("window") // name of the collection
         .on("value", (snap) => { 
-            // Empty the all showing messages to avoid duplicates
+            // Empty the all showing information to avoid duplicates
             this.retrievedInfo = [];
             const retrValue = snap.val();
 
-            // Loads messages 
+            // Loads information 
             for (const key in retrValue) {
                 const dbWindow = retrValue[key];
 
