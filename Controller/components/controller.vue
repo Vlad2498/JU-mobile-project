@@ -1,26 +1,26 @@
 <template>
     <view class="container">
-        <text>This is the controller page </text>
+        <text class="headline">This is the controller page</text>
         
         <!-- List of windows -->
         <scroll-view :content-container-style="{contentContainer: {flex:1}}">
             <!-- Buttons for each window -->
             <view v-for="window in retrievedInfo" :key="window.key" >
-                <view v-if="window.owner == authUser.email" class="windowContainer">
+                <view v-if="window.owner == authUser.email" class="windowContainer z-depth-1">
                     <text class="WindowText">Window with id: 
                       <text class="dynamicText">{{window.key}} </text> is currently :
                       <text class="dynamicText">{{window.status}} </text>
                     </text>
                     <view class="topBtn">
                         <view class="topBtnLeft">
-                            <button  title="Open Window" @press="openWindow(window)"></button>
+                            <button  title="Open Window" @press="openWindow(window)" color="green" ></button>
                         </view>
 
                         <view class="topBtnRight">
-                            <button  title="Close Window" @press="closeWindow(window)"></button>
+                            <button  title="Close Window" @press="closeWindow(window)" color=" rgb(203, 182, 26)" ></button>
                         </view>
                         <view class="topBtnRight">
-                            <button  title="Delete" @press="deleteWindow(window.key)"></button>
+                            <button  title="Delete" @press="deleteWindow(window.key)" color = "rgb(203, 26, 26)"></button>
                         </view>
                     </view>
                 </view>
@@ -29,11 +29,13 @@
 
         <!-- add a new window -->
         <view class="midBtn">
-            <button title="Add new window" @press="spawnWindow"></button>
+            <button title="Add new window" @press="spawnWindow" color = "green"></button>
         </view>
 
         <!-- Sign Out button -->
-        <button  title="Sign out" @press="logout"></button>
+        <view class="midBtn">
+        <button  title="Sign out" @press="logout" color="rgb(203, 26, 26)"></button>
+        </view>
     </view>
 </template>
 <script>
@@ -148,10 +150,16 @@ export default {
 
 <style >
 .container {
-  background-color: #0a84ff;
+  background-color:#315963;
   height: 100%;
   align-items: center;
   flex: 1;
+}
+.headline{
+  margin-top: 10;
+  margin-bottom: 10;
+  font-size: 20;
+  color:whitesmoke;
 }
 .topBtn{
   display: flex;
@@ -164,6 +172,7 @@ export default {
 .topBtnRight{
   margin-left: auto;
   margin-right: auto;
+  color: rgb(203, 26, 26);
 }
 .topBtnLeft{
     margin-right:auto;
@@ -171,30 +180,32 @@ export default {
 }
 
 .midBtn{
-    margin-top: 2%;
-    margin-bottom: 5%;
+    margin-top: 10;
+    margin-bottom: 10;
+    padding-bottom: 10;
 }
 
 .WindowText {
   font-size:16;
-  color:white;
+  color:black;
   margin-top: 5%;
 }
 
 .windowContainer{
   border-color: whitesmoke;
+  background-color: white;
   border-width: 2px;
   border-radius: 5;
   margin-top: 3%;
   padding-left: 5px;
   padding-right: 5px;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 
 .dynamicText{
   font-size:16;
-  color:white;
+  color:black;
   font-weight: bold;
 }
 </style>

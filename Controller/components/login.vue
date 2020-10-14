@@ -2,7 +2,7 @@
   <view class="container">
 
   <view>
-      
+    <text class="AppTitle">Smart Window</text>
     <!-- E-mail field -->
     <text-input 
     class = "text-input-container"
@@ -26,11 +26,11 @@
 
   <!-- Sign up and sign in -->
   <view class="btns"> 
-    <button title="Sign in" @press="() => signin()" color = "purple"></button>
+    <button title="Sign in" @press="() => signin()" color = "coral"></button>
   </view>
 
-  <view class="btns"> 
-    <button title="Sign up" @press="goToSignUpScreen"></button>
+  <view class="signupBtns"> 
+    <button title="Sign up" @press="goToSignUpScreen" color = "orange"></button>
   </view>
   </view>
 </template>
@@ -86,34 +86,49 @@ export default {
 </script>
 
 
-
-
 <style >
 
 .container {
-  background-color: #0a84ff;
-  height: 100%;
+  background-color:teal;
   align-items: center;
   flex: 1;
+}
+
+.AppTitle {
+  padding-top: 100;
+  margin: 50px;
+  font-size: 30;
+  color:whitesmoke;
 }
 
 .text-input-container {
   width: 300;
   height: 40;
-  margin: 10;
-  padding-left: 5;
-  font-size: 22;
   border-color: whitesmoke;
   border-width: 2px;
-  border-radius: 5;
-  color:white;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 20px;
 }
 
 .btns{
-  margin: 10;
-  width: 100px;
+  width: 120;
+  padding: 10px;
+  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 10px;
 }
 
+.signupBtns{
+  width: 120;
+  height: 40;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 10px;
+}
 .error-text {
   font-size:18;
   color:white;
