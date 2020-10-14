@@ -23,6 +23,8 @@
                         <view class="topBtnRight">
                             <button  title="Close Window" @press="closeWindow(window)" color = "#ff954f"></button>
                         </view>
+
+                       
                         
                     </view>
                 </view>
@@ -33,7 +35,6 @@
 
 <script>
 var firebase = require("firebase/app");
-
 export default {
   
   data(){
@@ -41,20 +42,42 @@ export default {
       information : "",
       retrievedInfo : [],
       windowOpen: "false",
+      timeout: [],
     } 
   },
 
   methods: {
 
-    recOpen() {
-      console.log("Window opened")
-      
-        var timeout = setTimeout(this.recOpen("Opened"), 1000);
-        // console.log("in opened loop")
-      // if(status == "Closed") {
-      //   clearTimeout(timeout)
+    recOpen(status) {
+      // if (status == "Opened"){
+      // console.log("Window opened in one second loops")
+      //   this.timeout = setTimeout(recOpen("Opened"), 1000);
+      // }else if(status == "Closed") {
+      //   clearTimeout(this.timeuot)
       //   console.log("in else condition")
       // }
+        function loop(){
+          var opnTimer = {};
+          var clsdTimer = {};
+          if(status == "Opened") {
+            if (clsdTimer){
+              clearTimeout(clsdTimer)
+              // console.log("closed clsd timer")
+            }
+            opnTimer = setTimeout(loop,1000)
+            console.log("Window open in loop every second")
+          } else if(status == "Closed") {
+            
+            if(opnTimer){
+              clearTimeout(opnTimer)
+              // console.log("closed opnTimer")
+            }
+            clsdTimer = setTimeout(loop, 2000)
+            console.log("Windwos is closed in loop every 2 seconds")
+          }
+        }
+
+        loop();
     },
 
         openWindow(window){
