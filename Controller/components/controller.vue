@@ -1,6 +1,6 @@
 <template>
     <view class="container">
-        <text class="headline">This is the controller page</text>
+        <text class="headline">This is the controller page for {{authUser.email}}</text>
         
         <!-- List of windows -->
         <scroll-view :content-container-style="{contentContainer: {flex:1}}">
@@ -10,10 +10,10 @@
                     <text class="WindowText">Window with id: 
                       <text class="dynamicText">{{window.key}} </text> is currently :
                       <text class="dynamicText">{{window.status}} </text> 
-                      <text v-if="window.status != 'Requiring Configuration'">
+                      <text v-if="window.status != 'Requiring Configuration. Please open or close the window.'">
                       since :
                       <text class="dynamicText">{{ window.since}} </text> 
-                      sec
+                      sec ago
                       </text>
                     </text>
                     <view class="topBtn">

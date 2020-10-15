@@ -39,13 +39,9 @@
                 color="#ff954f"
               ></button>
             </view>
-            <view class="topBtnRight">
-              <button
-                title="Loop"
-                @press="recOpen(window)"
-                color="#ff954f"
-              ></button>
-            </view>
+
+            
+
           </view>
         </view>
       </view>
@@ -70,16 +66,18 @@ export default {
       for (var i = 1; i < 99999; i++) {
         clearInterval(i);
       }
+
       setInterval(() => {
-        console.log("Update Windows info in Firebase !");
+        console.log("Updated Window opened in Firebase !");
         this.retrievedInfo.forEach((element) => {
           if (element.status == "Opened") {
             this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 1).toString() });
           }
       });
       }, 1000); //Do this action every 1s
+
        setInterval(() => {
-        console.log("Update Windows info in Firebase !");
+        console.log("Updated Window closed in Firebase !");
         this.retrievedInfo.forEach((element) => {
           if (element.status != "Opened") {
             this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 60).toString() });
