@@ -68,18 +68,18 @@ export default {
       }
 
       setInterval(() => {
-        console.log("Updated Window opened in Firebase !");
         this.retrievedInfo.forEach((element) => {
           if (element.status == "Opened") {
+            console.log("Updated Window with id " + element.key +  " opened in Firebase !");
             this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 1).toString() });
           }
       });
       }, 1000); //Do this action every 1s
 
        setInterval(() => {
-        console.log("Updated Window closed in Firebase !");
         this.retrievedInfo.forEach((element) => {
           if (element.status != "Opened") {
+            console.log("Updated Window with id " + element.key +  " closed in Firebase !");
             this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 60).toString() });
           }
         });
@@ -118,7 +118,7 @@ export default {
       .database()
       .ref("window") // name of the collection
       .on("value", (snap) => {
-        // Empty the all showing information to avoid duplicates
+        // Empty the previously retrieved information to avoid duplicates
         this.retrievedInfo = [];
         const retrValue = snap.val();
         // Loads information

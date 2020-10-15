@@ -10,7 +10,7 @@
                     <text class="WindowText">Window with id: 
                       <text class="dynamicText">{{window.key}} </text> is currently :
                       <text class="dynamicText">{{window.status}} </text> 
-                      <text v-if="window.status != 'Requiring Configuration. Please open or close the window.'">
+                      <text v-if="window.status != 'Requiring Configuration'">
                       since :
                       <text class="dynamicText">{{ window.since}} </text> 
                       sec ago
@@ -74,6 +74,7 @@ export default {
         },
 
 
+
         openWindow(window){
             if (window.status != "Opened") {
                 this.information.child(window.key).update({windowStatus: "Opened", windowsSince:"0"})
@@ -100,7 +101,7 @@ export default {
 
         deleteWindow(key){
             this.information.child(key).remove();
-            console.log("Window with id " + key + " removed")
+            console.log("Window with id " + key + " has been removed")
         },
 
         logout(){
@@ -116,13 +117,13 @@ export default {
         }
     },
 
-    mounted(){
-        this.information = firebase.database().ref("window");
-        firebase
+    async mounted(){
+        this.information = await firebase.database().ref("window");
+        await firebase
         .database()
         .ref("window") // name of the collection
         .on("value", (snap) => { 
-            // Empty the all showing information to avoid duplicates
+            // Empty the previously retrieved information to avoid duplicates
             this.retrievedInfo = [];
             const retrValue = snap.val();
 
@@ -186,9 +187,8 @@ export default {
 }
 
 .midBtn{
-    margin-top: 10;
-    margin-bottom: 10;
-    padding-bottom: 10;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .WindowText {
