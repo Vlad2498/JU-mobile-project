@@ -73,9 +73,19 @@ export default {
       setInterval(() => {
         console.log("Update Windows info in Firebase !");
         this.retrievedInfo.forEach((element) => {
-          this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 10).toString() });
+          if (element.status == "Opened") {
+            this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 1).toString() });
+          }
+      });
+      }, 1000); //Do this action every 1s
+       setInterval(() => {
+        console.log("Update Windows info in Firebase !");
+        this.retrievedInfo.forEach((element) => {
+          if (element.status != "Opened") {
+            this.information.child(element.key).update({ windowStatus: element.status, windowsSince: (parseInt(element.since) + 60).toString() });
+          }
         });
-      }, 10000); //Do this action every 1s
+      }, 60000); //Do this action every 1min
     },
 
     openWindow(window) {
